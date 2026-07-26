@@ -1,0 +1,599 @@
+aid: re-max-canada
+name: RE/MAX Canada
+slug: re-max-canada
+reviewer: API Evangelist
+reviewed: '2026-07-26'
+sector: Real Estate
+tier: brokerage
+homeMarket: Canada
+primaryDomain: remax.ca
+
+review:
+  question: >-
+    Does RE/MAX Canada publish a real, reachable, machine-readable API surface —
+    and is it RESO-certified, RESO-adjacent, or neither?
+  answer: >-
+    No. RE/MAX Canada publishes no developer portal, no API programme, no
+    OpenAPI/Swagger/GraphQL/AsyncAPI document and no OData $metadata. It holds no
+    RESO certification of any kind and no RESO reference appears anywhere in its
+    published estate. The only anonymously callable machine-readable surface
+    found is the stock WordPress REST API on its WordPress VIP-hosted blog, which
+    carries news content and no property data. Canadian listing content reaches
+    remax.ca through the CREA / member-board cooperative rather than through
+    anything RE/MAX Canada publishes, and the site's terms of use prohibit
+    automated access outright.
+
+identity:
+  legalRelationship: >-
+    Canadian operating arm of RE/MAX, LLC (subsidiary of RE/MAX Holdings, Inc.,
+    NYSE: RMAX, Denver, Colorado). On 2021-06-03 RE/MAX, LLC agreed to acquire
+    the North America regions of RE/MAX INTEGRA for approximately USD 235 million
+    in cash; the purchase closed 2021-07-21, bringing the RE/MAX Ontario-Atlantic
+    Canada region (Ontario, New Brunswick, Newfoundland and Labrador, Nova
+    Scotia, Prince Edward Island) plus the Western Canada region and roughly
+    12,000 Canadian agents into RE/MAX, LLC company-owned regions. In Canada the
+    acquired regions were folded into RE/MAX Canada.
+    Sources: RE/MAX Holdings press releases at news.remax.com and the SEC EDGAR
+    exhibit for CIK 0001581091 (tm2122783d1_ex99-1.htm).
+  quebecCarveOut: >-
+    Quebec is handled separately from remax.ca. https://www.remax.ca/robots.txt
+    (HTTP 200, fetched 2026-07-26) explicitly disallows /qc, /qc/*, /quebec and
+    /quebec/* for all user agents, and https://www.remax-quebec.com/ is a live
+    separate property (HTTP 200). Recorded as an observed fact about the portal's
+    coverage, not a claim about corporate ownership.
+  model: >-
+    Brokerage franchisor and bilingual consumer portal operator. RE/MAX Canada
+    does not own the listing data remax.ca displays; that content originates with
+    REALTOR® members and their boards under the CREA cooperative.
+  parentProfile: >-
+    See the sibling repo all/re-max/ for RE/MAX Holdings (United States), whose
+    only documented API programme lives in RE/MAX Europe and is partner-only.
+
+# =====================================================================
+# THE POINT OF THE EXERCISE: RESO POSTURE vs ACCESS GATE vs OPEN DATA
+# Three separate facts. None of them implies another.
+# =====================================================================
+resoAndAccess:
+
+  resoPosture:
+    summary: >-
+      No RESO reference found. RE/MAX Canada is not RESO-certified, is not named
+      in the RESO certification directory, and publishes no Web API, no OData
+      $metadata and no Universal Property Identifier. RESO in Canada is a
+      board-level phenomenon, not a brokerage-level one.
+    certified: false
+    webApiCertification: none
+    dataDictionaryCertification: none
+    dataDictionaryVersion: null
+    uoi: null
+    metadataDocument: none
+    odataSurface: >-
+      None. https://api.remax.ca/$metadata, https://api.remax.ca/odata and
+      https://api.remax.ca/Reso all returned HTTP 301 to www.remax.ca (the host
+      redirects every path); https://www.remax.ca/$metadata returned HTTP 404.
+      No OData service document, service root or $metadata EDMX exists.
+    universalPropertyIdentifier: >-
+      No UPI reference found. Zero occurrences of "UPI" or "Universal Property
+      Identifier" in the remax.ca homepage document (339,385 bytes, fetched
+      2026-07-26) or in the harvested WordPress REST index.
+    resoStringsOnRemaxCa: >-
+      A case-insensitive grep of the remax.ca homepage returns 11 apparent
+      "reso" matches — ALL of them false positives from the words "RESOURCES",
+      "Resort" and "Hotel/Resort" in the property-category vocabulary. Manually
+      inspected on 2026-07-26; there is no RESO reference on remax.ca.
+    certificationDirectoryEvidence:
+      - url: https://www.reso.org/certificates/
+        httpStatus: 200
+        fetched: '2026-07-26'
+        bytes: 416233
+        finding: >-
+          The RESO certification directory enumerates 578 organization entries,
+          each with a UOI, a date and a status (Certified Current / Passed
+          Current / Certified Legacy / Uncertified). A case-insensitive regex
+          for "re ?/? ?max" over the full document returns ZERO matches. RE/MAX
+          Canada is absent, as is every other RE/MAX entity.
+        canadianEntriesPresent: 30
+        canadianEntriesNote: >-
+          Canada IS represented in the directory — but only at board, association
+          and pooled-platform level, never at brokerage level. Observed Canadian
+          entries include: Information Technology Systems Ontario (ITSO) UOI
+          M00000807, 2022-03-23, Passed Current; Pillar 9 UOI M00000674,
+          2025-03-09, Passed Current; REALTORS® Association of Edmonton UOI
+          M00000692, 2025-03-10, Passed Current; Nova Scotia Association of
+          REALTORS® UOI M00000699, 2022-08-15, Passed Current; Vancouver Island
+          Real Estate Board UOI M00000576, 2025-03-09, Passed Current; Victoria
+          Real Estate Board UOI M00000051, 2022-08-15, Passed Current; Grand
+          Forks Area Association of REALTORS® UOI M00000429, 2020-01-31,
+          Certified Current; Huron Board of REALTORS® UOI M00000816, 2023-03-06,
+          Certified Current. Toronto Regional Real Estate Board (UOI M00000527,
+          2025-03-09), Greater Vancouver REALTORS® (UOI M00000671, 2024-02-12),
+          Fraser Valley Real Estate Board (UOI M00000607), Ottawa Real Estate
+          Board (UOI M00000401), Saskatchewan REALTORS® Association (UOI
+          M00000698), Winnipeg Regional Real Estate Board (UOI M00000647), New
+          Brunswick Real Estate Board (UOI M00000124) and Newfoundland &
+          Labrador Association of REALTORS® (UOI M00000639) are all listed with
+          status Uncertified. Only two of the thirty Canadian entries observed
+          carry status "Certified Current".
+      - url: https://certification.reso.org/
+        httpStatus: 400
+        fetched: '2026-07-26'
+        finding: >-
+          Consistent with the sibling RE/MAX review, the live RESO certification
+          reporting system rejects an anonymous GET and serves no body.
+    membershipEvidence:
+      - url: https://www.reso.org/membership/
+        httpStatus: 200
+        fetched: '2026-07-26'
+        bytes: 171436
+        finding: >-
+          "RE/MAX" appears exactly once, in the "Brokers, Agents and Appraisers
+          (Class D Members)" list. That entry is the RE/MAX corporate brand
+          (RE/MAX Holdings), not RE/MAX Canada, and it is a membership list, not
+          a certification list. The Canadian Real Estate Association (CREA)
+          appears separately under "Other Associations or Groups (Class F
+          Members)" — the Canadian national cooperative sits in RESO as an
+          association member, not as a certified data provider.
+    interpretation: >-
+      Canada shows the certification-versus-reachability split from the other
+      side. In the United States, RESO certification is mandated by NAR and held
+      by the ~500 MLSs; in Canada the same standard exists but is voluntary and
+      board-by-board, and the national cooperative that actually syndicates the
+      listings — CREA, through REALTOR.ca and the Data Distribution Facility —
+      participates in RESO as an association member rather than as a certified
+      endpoint. RE/MAX Canada, the brokerage brand, is downstream of all of it
+      and holds nothing. A brokerage-tier organization is structurally the wrong
+      place to look for a RESO endpoint in either country.
+
+  accessGate:
+    value: none-published
+    whatADeveloperMustSignOrJoin: >-
+      Nothing, because there is nothing to sign or join. RE/MAX Canada operates
+      no developer programme, publishes no API terms, no key-request form, no
+      application flow, no pricing and no rate-limit documentation. There is no
+      partner API, no IDX feed offered by RE/MAX Canada itself, and no sandbox.
+      A developer who wants Canadian MLS listing data must go to the layer above
+      RE/MAX Canada: CREA's Data Distribution Facility (DDF®), which requires a
+      REALTOR® membership relationship and a signed data licence, or a member
+      board / board technology provider such as ITSO or Pillar 9 — none of which
+      RE/MAX Canada controls or resells. Going the other direction is expressly
+      forbidden: the remax.ca terms of use prohibit "moyens électroniques,
+      automatisés ou à haut volume (notamment des robots d'exploration ou autres,
+      des scripts ou d'autres dispositifs automatisés) pour accéder aux
+      services" — automated, electronic or high-volume means, including web
+      crawlers, scripts or other automated devices, to access the services — and
+      separately forbid any search or retrieval application designed to retrieve,
+      index or reproduce the site. https://www.remax.ca/robots.txt disallows
+      /api/, /v2/ and /feature-flags/ to all user agents.
+    selfServe: false
+    publicDocsReadableAnonymously: false
+    keysObtainableAnonymously: false
+    developerPortal: none
+    developerPortalCaveat: >-
+      developer.remax.ca, developers.remax.ca and docs.remax.ca all answer on
+      port 443 with HTTP 403, which could be mistaken for a gated portal. They
+      are not portals. remax.ca serves a DNS WILDCARD: the control probe
+      zzzznotreal.remax.ca resolves to exactly the same target
+      (CNAME customers.kvcore.com, behind Cloudflare) as all three. The 403 is a
+      Cloudflare challenge for a site that does not exist. Same wildcard pattern
+      as remax.com in the sibling repo.
+
+  openData:
+    value: false
+    finding: >-
+      RE/MAX Canada publishes no open, unlicensed, publicly callable dataset.
+      This is the sharpest illustration in the Canadian market of public record
+      turned commercial product. Section 4 of the remax.ca terms of use governs
+      the site's price estimates, which are supplied by Teranet Inc. — the
+      company that operates Ontario's land registry under a long concession. The
+      terms state that the estimates may be used only for personal, non-business
+      property evaluation and expressly "ne peuvent pas être utilisées à des fins
+      commerciales, de vente, de distribution externe ou d'octroi de licence ou
+      de sous-licence, moyennant des frais ou non" (may not be used for
+      commercial purposes, sale, external distribution, or licensing or
+      sublicensing, whether for a fee or not) — while simultaneously conceding
+      that "certaines des évaluations de prix, ou l'ensemble d'entre elles,
+      peuvent être basées sur des renseignements provenant du public et recueillis
+      par la province de l'Ontario, la province du Manitoba et par la British
+      Columbia Assessment Authority" (some or all of the price estimates may be
+      based on public information collected by the Province of Ontario, the
+      Province of Manitoba, and the British Columbia Assessment Authority). Public
+      provincial assessment and registry data reaches the consumer only through a
+      private intermediary, under a personal-use-only licence. That is the
+      Canadian privatised-land-registry seam in a single clause.
+    thirdPartyOpenDataNote: >-
+      Open Canadian property data does exist, but not from RE/MAX Canada — it
+      exists at provincial/municipal open-data portals and is out of scope for
+      this provider record. Nothing was claimed here that was not fetched.
+
+  authModel:
+    productApiAuth: none — no product API exists to authenticate against.
+    onlyObservedScheme: >-
+      WordPress application passwords, declared in the harvested
+      https://blog.remax.ca/wp-json/ index as
+      {"application-passwords":{"endpoints":{"authorization":
+      "https://blog.remax.ca/wp-admin/authorize-application.php"}}}. This is a
+      CMS staff-login mechanism on a WordPress VIP site, not developer
+      onboarding. The wp/v2 content routes read anonymously with no credential.
+    openidConnectDiscovery: >-
+      Not served. https://www.remax.ca/.well-known/openid-configuration returned
+      HTTP 404 (anonymous GET, 2026-07-26). No OIDC, no OAuth authorization
+      server metadata, no SAML metadata found on any RE/MAX Canada host.
+    apiKeys: none documented
+    oauth2: none documented
+    mtls: none documented
+    scopes: >-
+      None. No scope vocabulary exists to record; none was invented.
+
+# =====================================================================
+# PROBE LOG — every URL touched, with HTTP status, 2026-07-26
+# =====================================================================
+probes:
+  portalAndSpecDiscovery:
+    - url: https://www.remax.ca/
+      status: 200
+      note: >-
+        Live bilingual consumer portal. Next.js application served through
+        CloudFront (dimhqd3hpg4ij.cloudfront.net). Homepage document 339,385
+        bytes.
+    - url: https://remax.ca/
+      status: 200
+    - url: https://www.remax.ca/fr/
+      status: 200
+      note: French-language portal.
+    - url: https://www.remax.ca/robots.txt
+      status: 200
+      note: >-
+        Disallows /api/, /v2/, /feature-flags/, /css/, /render-placeholder,
+        /print-listing, /find-real-estate*, /qc, /qc/*, /quebec, /quebec/* and
+        paginated URLs for all user agents. Lists 15 sitemap index files
+        (new_listing, listing, agent, rental, office, landing pages, directory
+        pages, city/property-type, neighbourhood, open houses, popular cities,
+        business opportunity, off-market). A search-indexing posture, not a
+        data-sharing one.
+    - url: https://www.remax.ca/developers
+      status: 404
+    - url: https://www.remax.ca/api
+      status: 404
+    - url: https://www.remax.ca/api/
+      status: 308
+      note: Redirect only; robots-disallowed internal app path, not a documented API.
+    - url: https://www.remax.ca/api/v1/listings
+      status: 500
+      note: >-
+        Internal Next.js/backend route. Returns a zero-byte 500 to an anonymous
+        caller. Undocumented and robots-disallowed; NOT recorded as an API.
+    - url: https://www.remax.ca/api/v1/user/renew
+      status: 500
+      note: >-
+        Named explicitly in robots.txt, which is the only place its existence is
+        disclosed. Zero-byte 500 anonymously. Internal session-renewal route.
+    - url: https://www.remax.ca/docs
+      status: 404
+    - url: https://www.remax.ca/api-docs
+      status: 404
+    - url: https://www.remax.ca/openapi.json
+      status: 404
+    - url: https://www.remax.ca/swagger.json
+      status: 404
+    - url: https://www.remax.ca/$metadata
+      status: 404
+    - url: https://www.remax.ca/.well-known/openid-configuration
+      status: 404
+    - url: https://www.remax.ca/.well-known/security.txt
+      status: 404
+    - url: https://www.remax.ca/llms.txt
+      status: 404
+    - url: https://www.remax.ca/idx
+      status: 404
+    - url: https://www.remax.ca/data
+      status: 404
+    - url: https://www.remax.ca/sitemap.xml
+      status: 404
+      note: >-
+        The literal /sitemap.xml is absent; the real sitemaps live under
+        /sitemaps/ci/ and are named in robots.txt.
+    - url: https://www.remax.ca/terms-of-use
+      status: 200
+      bytes: 159463
+      note: >-
+        Served the FRENCH document to an anonymous GET even with
+        Accept-Language: en-CA. Quoted verbatim in French above with an English
+        gloss rather than paraphrased.
+    - url: https://www.remax.ca/privacy-policy
+      status: 404
+    - url: https://www.remax.ca/about
+      status: 404
+    - url: https://www.remax.ca/franchise
+      status: 404
+    - url: https://www.remax.ca/contact
+      status: 404
+
+  subdomainProbes:
+    method: >-
+      Every candidate hostname was compared against the wildcard control probe
+      zzzznotreal.remax.ca, which resolves to CNAME customers.kvcore.com. Any
+      host resolving to that target is a wildcard artifact, not a real service.
+      Only hosts whose DNS DIFFERS from the wildcard are treated as real.
+    wildcardTarget: customers.kvcore.com
+    hosts:
+      - url: https://developer.remax.ca/
+        status: 403
+        dns: CNAME customers.kvcore.com
+        verdict: WILDCARD — not a portal
+      - url: https://developers.remax.ca/
+        status: 403
+        dns: CNAME customers.kvcore.com
+        verdict: WILDCARD — not a portal
+      - url: https://docs.remax.ca/
+        status: 403
+        dns: CNAME customers.kvcore.com
+        verdict: WILDCARD — not a portal
+      - url: https://zzzznotreal.remax.ca/
+        status: n/a
+        dns: CNAME customers.kvcore.com
+        verdict: CONTROL PROBE — proves the wildcard
+      - url: https://api.remax.ca/
+        status: 301
+        dns: >-
+          CNAME prod-dotca-lbs-alb-p-959356091.us-east-1.elb.amazonaws.com —
+          a REAL AWS Application Load Balancer, distinct from the wildcard.
+        verdict: >-
+          Real host, but not an API. Server header is Kestrel (ASP.NET). EVERY
+          path probed returns HTTP 301 to the matching path on www.remax.ca:
+          /, /swagger, /swagger/v1/swagger.json, /v1, /listings, /graphql,
+          /odata, /Reso and /RESO/odata/$metadata all 301. The single exception
+          is /api/v1, which returns a zero-byte HTTP 500. There is no API
+          served here to an anonymous caller. Contrast with the sibling
+          re-max repo, where api.remax.com is a DANGLING CNAME that does not
+          resolve at all; api.remax.ca at least resolves and answers.
+      - url: https://api.remax.ca/openapi.json
+        status: 404
+      - url: https://api.remax.ca/swagger/index.html
+        status: 404 (after redirect)
+      - url: https://api.remax.ca/health
+        status: 404
+      - url: https://blog.remax.ca/
+        status: 200
+        dns: CNAME remax-promotions.go-vip.net (WordPress VIP)
+        verdict: REAL — the only machine-readable surface in the estate.
+      - url: https://join.remax.ca/
+        status: 200
+        verdict: REAL — WordPress VIP recruiting site.
+      - url: https://franchise.remax.ca/
+        status: 200
+        verdict: REAL — WordPress VIP franchising site.
+      - url: https://news.remax.ca/
+        status: 403
+        dns: CNAME 376297.group47.sites.hubspot.net
+        verdict: >-
+          Real HubSpot-hosted host, but returns a 17-byte 403 anonymously. No
+          content and no API retrievable.
+      - url: https://static-images.remax.ca/
+        status: 200
+        dns: CNAME t.sni.global.fastly.net
+        verdict: Fastly image CDN. Media only.
+      - url: https://images.remax.ca/
+        status: n/a
+        dns: CNAME t.sni.global.fastly.net
+        verdict: Fastly image CDN.
+      - url: https://cdn.remax.ca/
+        status: 000
+        dns: CNAME remax.imgix.net
+        verdict: imgix image CDN; TLS/connection failed anonymously.
+      - url: https://data.remax.ca/
+        status: 000
+        dns: A 98.129.229.210 (differs from the wildcard)
+        verdict: >-
+          A real, distinct A record — tempting given the name — but nothing
+          answers on 443 anonymously. NOT recorded as a data API. No evidence
+          of any service, so no claim is made about it.
+      - url: https://admin.remax.ca/
+        status: 000
+        dns: A 199.185.139.99 (differs from the wildcard)
+        verdict: Real distinct record; nothing answers anonymously.
+      - url: https://www.remax-quebec.com/
+        status: 200
+        verdict: >-
+          Live separate Quebec property, consistent with remax.ca robots.txt
+          disallowing /qc and /quebec. Not probed further; out of scope for
+          this record.
+
+  wordpressRestProbes:
+    - url: https://blog.remax.ca/wp-json/
+      status: 200
+      bytes: 446832
+      contentType: application/json; charset=UTF-8
+      parsed: true
+      finding: >-
+        Full WordPress REST API discovery index. name "REMAX Canada",
+        description "Canadian real estate news published weekly...", timezone
+        America/Toronto, 25 namespaces, 563 routes. Saved verbatim to
+        openapi/re-max-canada-blog-wp-json-index.json.
+    - url: https://blog.remax.ca/wp-json/wp/v2/posts?per_page=1
+      status: 200
+      bytes: 37471
+      finding: Content readable anonymously with no credential.
+    - url: https://blog.remax.ca/wp-json/wp/v2/users
+      status: 200
+      finding: Author list readable anonymously.
+    - url: https://blog.remax.ca/feed/
+      status: 200
+      bytes: 411175
+      contentType: application/rss+xml
+    - url: https://blog.remax.ca/sitemap_index.xml
+      status: 200
+      note: >-
+        Also lists join.remax.ca and franchise.remax.ca sitemaps, which is how
+        those two hosts were discovered.
+    - url: https://blog.remax.ca/robots.txt
+      status: 200
+      note: >-
+        Notable — it EXPLICITLY ALLOWS GPTBot, OAI-SearchBot, ChatGPT-User,
+        ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot,
+        Perplexity-User, Google-Extended, CCBot and cohere-ai, and sets a blanket
+        "User-agent: * / Disallow:" (allow everything). The marketing blog is
+        wide open to AI agents while the listings portal at www.remax.ca forbids
+        automated access in its terms of use. The two postures are opposite.
+    - url: https://blog.remax.ca/llms.txt
+      status: 404
+    - url: https://join.remax.ca/wp-json/
+      status: 200
+      bytes: 561075
+      finding: Same stock WordPress REST API, open anonymously. Not separately saved.
+    - url: https://franchise.remax.ca/wp-json/
+      status: 200
+      bytes: 521300
+      finding: Same stock WordPress REST API, open anonymously. Not separately saved.
+
+  resoProbes:
+    - url: https://www.reso.org/certificates/
+      status: 200
+      bytes: 416233
+    - url: https://www.reso.org/membership/
+      status: 200
+      bytes: 171436
+    - url: https://certification.reso.org/
+      status: 400
+
+  otherProbes:
+    - url: https://api.github.com/orgs/remax-canada
+      status: 404
+    - url: https://api.github.com/orgs/remaxca
+      status: 404
+      note: >-
+        No RE/MAX Canada GitHub organization exists. A GitHub repository search
+        for "remax.ca" returns 13 results, all third-party — scrapers and
+        unrelated projects (e.g. snacsnoc/bc-real-estate-dashboard, "Realtor.ca
+        and Remax data fetcher"). No official code.
+    - source: Web search for a RE/MAX Canada developer/API programme
+      status: 200
+      verdict: >-
+        No official RE/MAX Canada API surfaced. Every result was a third-party
+        scraper (multiple Apify actors for remax.ca), a third-party MLS IDX
+        reseller, or guidance pointing developers to CREA's REALTOR.ca DDF® as
+        the closest thing to a nationwide Canadian listings API. This is
+        corroborating context only; nothing from it was recorded as a RE/MAX
+        Canada artifact.
+
+# =====================================================================
+harvest:
+  openapi:
+    harvested: false
+    count: 0
+    note: >-
+      No OpenAPI, Swagger, AsyncAPI, GraphQL schema or OData $metadata document
+      exists anywhere in the RE/MAX Canada estate. Every candidate path listed in
+      the probe log was tried and returned 404, 301 or 500. Nothing was
+      generated, inferred or reconstructed.
+  machineReadableContracts:
+    harvested: true
+    count: 1
+    items:
+      - path: openapi/re-max-canada-blog-wp-json-index.json
+        format: >-
+          WordPress REST API discovery index — NOT OpenAPI. It is WordPress's own
+          self-describing route document: for each of 563 routes it declares the
+          namespace, supported methods, endpoint arguments and their types,
+          defaults and enums. It is genuinely machine-readable, and it is saved
+          here verbatim precisely because it is the only such document RE/MAX
+          Canada serves.
+        sourceURL: https://blog.remax.ca/wp-json/
+        httpStatus: 200
+        fetched: '2026-07-26'
+        bytes: 446832
+        parsed: true
+        namespaces: 25
+        routes: 563
+        auth: >-
+          Anonymous read on wp/v2 content routes; WordPress application passwords
+          declared for write/admin routes.
+        redactions: none required
+        caveat: >-
+          Content API only. No listings, no property records, no valuations, no
+          RESO fields. Most routes are Jetpack / Akismet / cron-control / Yoast /
+          Cloudinary / WordPress VIP plugin routes requiring authentication.
+  collections:
+    harvested: false
+    count: 0
+    note: >-
+      No Postman workspace, collection or Documenter site was found for RE/MAX
+      Canada. (The sibling RE/MAX record has two, but both belong to RE/MAX
+      Europe.)
+
+apiFamily:
+  segmentationAsTheDocsUseIt: >-
+    RE/MAX Canada publishes no API documentation, so there is no vendor
+    segmentation to represent. The product categories the SITE exposes — for
+    sale, for rent, agents, offices, neighbourhoods, open houses, land, condo,
+    mobile homes, townhomes, business opportunities, off-market, and Teranet
+    price estimates — are web pages, not API resources.
+  listingsSearch: no API
+  propertyRecords: no API
+  valuationAVM: >-
+    Present as a consumer FEATURE only. Home price estimates on remax.ca are
+    supplied by Teranet Inc. under a personal-use-only licence (terms of use
+    section 4). No API, no endpoint, no key. Commercial use, resale, external
+    distribution and sublicensing are all forbidden.
+  titleAndLandRegistry: >-
+    No API. Relevant only through the Teranet relationship — Teranet operates
+    Ontario's land registry under concession and appears in the remax.ca terms of
+    use as both a named business partner and the source of price estimates
+    derived from Ontario, Manitoba and BC Assessment public records.
+  transactions: no API
+  documents: no API
+  tenancy: >-
+    Rentals exist as a portal section with its own sitemap
+    (rental_sitemaps_index.xml). No API.
+  payments: no API
+  mortgage: >-
+    No Canadian equivalent of the US Motto Mortgage / wemlo developer surface was
+    found, and neither of those publishes one either.
+  webhooks: none documented
+  events: none documented
+  asyncapi: none
+  graphql: >-
+    None. https://api.remax.ca/graphql returns 301 to www.remax.ca; no GraphQL
+    endpoint or introspection surface was found.
+  sdks: none published
+  cli: none published
+  postman: none
+  changelog: none published
+  statusPage: none found
+  ratePlans: none published
+  rateLimits: none documented
+
+conclusions:
+  developerPortal: ''
+  portalConfirmed: false
+  gated: true
+  gatedNote: >-
+    "Gated" here does not mean there is a gate a developer can queue at. There is
+    no gate because there is no programme. The listing data RE/MAX Canada
+    displays is gated one layer up, at CREA and the member boards, and the site's
+    own terms of use place an explicit prohibition on automated access.
+  accessGate: none-published
+  openData: false
+  resoCertified: false
+  resoPosture: >-
+    No RESO reference found — not certified, not in the RESO certification
+    directory, no Web API or Data Dictionary endorsement, no $metadata, no OData,
+    no UPI. RESO in Canada appears only at board and pooled-platform level (30
+    Canadian entries in the directory, only 2 of them "Certified Current"), with
+    CREA participating as a Class F association member rather than as a certified
+    data provider.
+  sectorLesson: >-
+    Canada answers the sector's central question by removing the mandate. The
+    United States has ~500 MLSs each obliged by NAR to hold RESO certification,
+    which produces hundreds of certified-but-unreachable endpoints; Canada has one
+    national cooperative and voluntary board-level certification, which produces
+    fewer certified endpoints and the same unreachability. Either way the
+    brokerage brand holds nothing. RE/MAX Canada's estate is a WAF-fronted
+    consumer portal, a wildcard that makes three non-existent developer hostnames
+    answer on port 443, an api. subdomain that 301s every request back to the
+    website, and a marketing blog whose stock WordPress REST API is the only
+    thing in the whole company that a developer can call anonymously. The most
+    revealing artifact is the split posture: blog.remax.ca/robots.txt explicitly
+    welcomes GPTBot, ClaudeBot, PerplexityBot and CCBot to the marketing content,
+    while the terms of use governing the listings portal forbid crawlers, scripts
+    and automated devices entirely. The content RE/MAX Canada owns is wide open
+    to agents; the data it merely licenses is closed to everyone.
