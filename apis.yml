@@ -45,7 +45,7 @@ accessModel:
   - terms-of-use
   generated: '2026-07-26'
   method: manual
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+image: https://static-images.remax.ca/next-assets/open-graph-logo/REMAX_Residential_og.png
 tags:
 - Real Estate
 - Canada
@@ -101,6 +101,20 @@ apis:
   - type: Blog
     url: https://blog.remax.ca/feed/
 common:
+- type: DomainSecurity
+  url: security/re-max-canada-domain-security.yml
+- type: Authentication
+  url: authentication/re-max-canada-authentication.yml
+- type: Conventions
+  url: conventions/re-max-canada-conventions.yml
+- type: ErrorCatalog
+  url: errors/re-max-canada-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/re-max-canada-lifecycle.yml
+- type: Conformance
+  url: conformance/re-max-canada-conformance.yml
+- type: LLMsTxt
+  url: llms/re-max-canada-llms.txt
 - type: Website
   url: https://www.remax.ca/
 - type: Website
@@ -113,12 +127,20 @@ common:
   url: https://franchise.remax.ca/
 - type: Website
   url: https://join.remax.ca/
+- type: Website
+  url: https://agentbrokerhub.remax.ca/
 - type: TermsOfService
   url: https://www.remax.ca/terms-of-use
+- type: PrivacyPolicy
+  url: https://blog.remax.ca/privacy-notice/
 - type: Website
   url: https://www.remax.com/
 - type: LinkedIn
   url: https://www.linkedin.com/company/remax-canada
+- type: Facebook
+  url: https://www.facebook.com/remaxcanada
+- type: Instagram
+  url: https://www.instagram.com/remaxcanada/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

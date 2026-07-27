@@ -1,0 +1,71 @@
+generated: '2026-07-26'
+method: searched
+source: live probes of the RE/MAX Canada estate on 2026-07-26
+versioning:
+  scheme: namespace-in-path
+  current: wp/v2
+  docs: null
+  note: >-
+    Applies only to the WordPress REST API on blog.remax.ca. Versions are
+    WordPress namespaces (wp/v2, wpcom/v2, jetpack/v4, cloudinary/v1 ...) set by
+    the platform and its plugins, not a version policy RE/MAX Canada authored.
+    RE/MAX Canada publishes no versioning policy for anything.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset header and no Deprecation header
+    were observed on any probed response. No route in the harvested discovery
+    index is marked deprecated.
+sla:
+  url: null
+  uptime_target: null
+  note: No SLA, uptime commitment or support tier is published.
+status_page:
+  url: null
+  finding: >-
+    None. status.remax.ca resolves to a REAL, distinct DNS record — CNAME
+    stats.pingdom.com — which is not the remax.ca wildcard target
+    (customers.kvcore.com, proven by the control probe). It is nonetheless a
+    DANGLING Pingdom public status page: the HTTPS certificate does not cover
+    status.remax.ca, and both http://status.remax.ca/ and https://status.remax.ca/
+    (with verification disabled) return HTTP 404 with the Pingdom body
+    "404 - Status Page not Found" (1,661 bytes). RE/MAX Canada once pointed a
+    hostname at a Pingdom status page and the page no longer exists. Because
+    there is no live status page, NO `StatusPage` pointer is wired into
+    apis.yml.
+  evidence:
+  - url: https://status.remax.ca/
+    dns: CNAME stats.pingdom.com
+    status: 404
+    tls: certificate subject does not match status.remax.ca
+    bytes: 1661
+    fetched: '2026-07-26'
+  - url: http://status.remax.ca/
+    status: 404
+    bytes: 1661
+    fetched: '2026-07-26'
+  - url: https://trust.remax.ca/
+    dns: CNAME customers.kvcore.com
+    verdict: DNS wildcard artifact — not a trust centre.
+changelog:
+  url: null
+  note: >-
+    No dated changelog, release-notes page or version history is published for
+    any RE/MAX Canada surface. changelog/ is deliberately not emitted.
+roadmap:
+  url: null
+  note: No public roadmap.
+support:
+  url: null
+  note: >-
+    No developer support channel, community forum, contact form or help centre
+    was found. /contact, /contact-us, /customer-service and /find-a-realtor all
+    return 404 on both www.remax.ca and blog.remax.ca.
+deprecated_operations: []
+lifecycle_stage:
+  product_api: none-published
+  observed_surface: >-
+    Platform default (WordPress VIP), operated as a marketing site — not
+    lifecycle-managed as an API.

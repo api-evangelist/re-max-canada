@@ -1,0 +1,121 @@
+generated: '2026-07-26'
+method: searched
+source: live anonymous GET probes of every RE/MAX Canada host in apis.yml
+summary: >-
+  Nothing found. Every /.well-known/ discovery path was probed against all five
+  reachable RE/MAX Canada hosts — the consumer portal, the api. load balancer and
+  the three WordPress VIP properties — and not one returned a document. No
+  security.txt (RFC 9116), no OpenID Connect discovery, no OAuth 2.0
+  authorization server metadata (RFC 8414), no RFC 9727 api-catalog and no
+  ai-plugin.json exists anywhere in the estate. /llms.txt is equally absent on
+  every host. This file is a NEGATIVE record kept as evidence; because no
+  document was retrieved, NO `WellKnown`, `SecurityTxt` or `APICatalog` pointer
+  is wired into apis.yml — there is no well-known surface to point at.
+note: >-
+  www.remax.ca and api.remax.ca sit behind a WAF that answers a default curl
+  user-agent with HTTP 403 on every path. Each 404 recorded for those hosts was
+  re-probed with a browser user-agent so the status reflects the resource, not
+  the bot challenge. api.remax.ca 301-redirects every path to www.remax.ca, so
+  its well-known probes never reach an origin at all.
+paths_probed:
+- /.well-known/security.txt
+- /.well-known/openid-configuration
+- /.well-known/oauth-authorization-server
+- /.well-known/api-catalog
+- /.well-known/ai-plugin.json
+- /llms.txt
+hosts:
+- host: https://blog.remax.ca
+  role: WordPress VIP blog — the only anonymously callable API surface
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://www.remax.ca
+  role: bilingual consumer portal (Next.js behind CloudFront + WAF)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    note: 403 to a default user-agent; 404 with a browser user-agent.
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    note: WAF challenge; no origin response obtained.
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    note: WAF challenge; no origin response obtained.
+  - path: /llms.txt
+    status: 404
+- host: https://api.remax.ca
+  role: >-
+    real AWS Application Load Balancer (Kestrel/ASP.NET) that 301-redirects every
+    path to www.remax.ca — not an API
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    note: Redirects to https://www.remax.ca/.well-known/security.txt, which 404s.
+  - path: /.well-known/openid-configuration
+    status: 301
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+  - path: /.well-known/api-catalog
+    status: 301
+  - path: /.well-known/ai-plugin.json
+    status: 301
+  - path: /llms.txt
+    status: 301
+- host: https://join.remax.ca
+  role: WordPress VIP agent-recruiting site
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://franchise.remax.ca
+  role: WordPress VIP franchising site
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://agentbrokerhub.remax.ca
+  role: >-
+    WordPress VIP agent/broker resource hub — a REAL host discovered this round
+    (CNAME remax-promotions.go-vip.net, distinct from the remax.ca DNS wildcard
+    target customers.kvcore.com). Serves the stock WordPress REST API
+    anonymously at /wp-json/ (HTTP 200, 691,672 bytes, 33 namespaces, 686
+    routes, site name "REMAX Canada Agent Broker Hub").
+  documents:
+  - path: /llms.txt
+    status: 404
+  - path: /robots.txt
+    status: 200
+    note: Not a well-known path; recorded because the host is newly discovered.

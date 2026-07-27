@@ -1,0 +1,81 @@
+generated: '2026-07-26'
+method: searched
+source: >-
+  openapi/re-max-canada-blog-wp-json-index.json (harvested WordPress REST
+  discovery index, HTTP 200, 2026-07-26) plus live anonymous probes of
+  https://blog.remax.ca/wp-json/
+docs: https://blog.remax.ca/wp-admin/authorize-application.php
+summary:
+  types:
+  - http
+  api_key_in: []
+  oauth2_flows: []
+  anonymous_read: true
+  developer_onboarding: none-published
+product_api_auth: >-
+  None. RE/MAX Canada operates no product API, so there is no authentication
+  model for listings, agents, offices, valuations or transactions. Nothing was
+  invented to fill this section.
+schemes:
+- name: anonymous
+  type: none
+  applies_to: >-
+    The wp/v2 content namespace on blog.remax.ca, join.remax.ca,
+    franchise.remax.ca and agentbrokerhub.remax.ca. Confirmed live with GET
+    /wp-json/wp/v2/posts?per_page=1 (HTTP 200) and GET /wp-json/wp/v2/users
+    (HTTP 200) with no credential of any kind.
+  sources:
+  - openapi/re-max-canada-blog-wp-json-index.json
+- name: application-passwords
+  type: http
+  scheme: basic
+  standard: RFC 7617 HTTP Basic over TLS
+  description: >-
+    WordPress Application Passwords. Declared verbatim by the harvested
+    discovery index as
+    {"application-passwords":{"endpoints":{"authorization":"https://blog.remax.ca/wp-admin/authorize-application.php"}}}.
+    A credential is minted inside wp-admin by an already-authenticated WordPress
+    user and then sent as HTTP Basic (username + application password) on
+    subsequent REST calls. This is a CMS staff-login mechanism supplied by the
+    hosting platform, NOT a developer onboarding path: there is no self-serve
+    signup, no key-request form, no application review and no published terms
+    governing it.
+  authorization_endpoint: https://blog.remax.ca/wp-admin/authorize-application.php
+  self_serve: false
+  sources:
+  - openapi/re-max-canada-blog-wp-json-index.json
+- name: cookie-plus-nonce
+  type: apiKey
+  in: header
+  parameter_name: X-WP-Nonce
+  description: >-
+    The WordPress core first-party scheme for logged-in browser sessions. Listed
+    for completeness because it is inherent to every WordPress REST install; it
+    is not usable by a third-party integrator and it is not advertised in the
+    discovery index's authentication block.
+  self_serve: false
+  sources:
+  - WordPress core behaviour (not asserted by the provider)
+observed_behaviour:
+- probe: GET https://blog.remax.ca/wp-json/wp/v2/settings
+  status: 401
+  body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+  note: >-
+    Authenticated-only routes reject anonymous callers with the WordPress
+    rest_forbidden envelope carrying HTTP 401 — no WWW-Authenticate challenge is
+    returned, so there is no discoverable auth negotiation.
+- probe: GET https://blog.remax.ca/wp-json/wp/v2/posts?per_page=1
+  status: 200
+  note: Content routes read anonymously; CORS is Access-Control-Allow-Origin *.
+negative_findings:
+  oauth2: >-
+    None documented and none discoverable.
+    /.well-known/oauth-authorization-server returns 404 on every host.
+  openid_connect: >-
+    None. /.well-known/openid-configuration returns 404 on blog.remax.ca,
+    join.remax.ca, franchise.remax.ca and www.remax.ca.
+  api_keys: None issued or documented by RE/MAX Canada.
+  mutual_tls: None documented.
+  scopes: >-
+    No scope vocabulary exists. WordPress authorizes by user capability, not by
+    OAuth scope, so scopes/ is deliberately NOT emitted for this provider.

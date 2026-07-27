@@ -597,3 +597,109 @@ conclusions:
     while the terms of use governing the listings portal forbid crawlers, scripts
     and automated devices entirely. The content RE/MAX Canada owns is wide open
     to agents; the data it merely licenses is closed to everyone.
+
+# =====================================================================
+# ENRICHMENT ROUND — 2026-07-26 (second pass)
+# New probes only. Nothing here supersedes the record above.
+# =====================================================================
+enrichmentRounds:
+- date: '2026-07-26'
+  newHostsFound:
+  - url: https://agentbrokerhub.remax.ca/
+    status: 200
+    dns: CNAME remax-promotions.go-vip.net (WordPress VIP — NOT the wildcard)
+    title: Home - REMAX Canada Agent Broker Hub
+    finding: >-
+      A fourth WordPress VIP property, discovered from the www.remax.ca footer.
+      Serves the stock WordPress REST API anonymously at /wp-json/ (HTTP 200,
+      691,672 bytes, 33 namespaces, 686 routes). Same shape as blog/join/
+      franchise; not separately saved.
+  - url: https://status.remax.ca/
+    status: 404
+    dns: CNAME stats.pingdom.com (a REAL record, distinct from the wildcard)
+    finding: >-
+      A DANGLING Pingdom public status page. The TLS certificate does not cover
+      status.remax.ca, and both http and https (verification disabled) return
+      HTTP 404 with the Pingdom body "404 - Status Page not Found" (1,661
+      bytes). RE/MAX Canada once pointed a hostname at a Pingdom status page;
+      the page no longer exists. Recorded in lifecycle/ as status_page null —
+      NO StatusPage pointer was wired.
+  newPagesFound:
+  - url: https://blog.remax.ca/privacy-notice/
+    status: 200
+    note: >-
+      The privacy policy for the whole estate lives on the BLOG host, not the
+      portal — www.remax.ca/privacy-policy and /privacy both 404. Wired as
+      type PrivacyPolicy.
+  - url: https://blog.remax.ca/accessibility-policy/
+    status: 200
+  - url: https://blog.remax.ca/phishing-and-scam-information/
+    status: 200
+    note: >-
+      Consumer fraud awareness, not a vulnerability-disclosure programme. No
+      security@ contact, no bug bounty, no policy URL — no Security or
+      VulnerabilityDisclosure pointer was wired.
+  wellKnownSweep:
+    result: nothing-found
+    note: >-
+      /.well-known/security.txt, /openid-configuration,
+      /oauth-authorization-server, /api-catalog, /ai-plugin.json and /llms.txt
+      were probed against blog, www, api, join and franchise. Every one 404s
+      (or 301s, on api.remax.ca). Recorded as a negative artifact at
+      well-known/re-max-canada-well-known.yml with NO WellKnown pointer, because
+      there is no well-known surface to point at.
+  errorProbes:
+    note: >-
+      Five WordPress REST error types were captured verbatim from live probes
+      into errors/re-max-canada-problem-types.yml — rest_no_route (404),
+      rest_post_invalid_page_number (400), rest_invalid_param (400,
+      nested rest_out_of_bounds), rest_forbidden (401, no WWW-Authenticate) and
+      rest_post_invalid_id (404). The envelope is WordPress's
+      {code,message,data.status}, served as application/json — NOT RFC 9457.
+  conventionsProbes:
+    note: >-
+      Response headers on GET /wp-json/wp/v2/posts confirm X-WP-Total (2110),
+      X-WP-TotalPages, Link rel="next", Access-Control-Allow-Origin *,
+      Access-Control-Expose-Headers for the pagination trio, and
+      Cache-Control max-age=60. per_page is capped at 10 on this WordPress VIP
+      install rather than the WordPress default of 100. No rate-limit header of
+      any kind is returned, and no idempotency mechanism exists — so no
+      Idempotency pointer was wired.
+  packagesAndSdks:
+    result: none
+    note: >-
+      npm returns @remax/macro, remax, create-remax-app and @remax/one — the
+      Alibaba "Remax" React framework, unrelated to RE/MAX. PyPI /pypi/remax
+      404s. No RE/MAX Canada GitHub organization exists. No first-party client
+      library of any kind; packages/ was not created.
+  imageCorrection:
+    note: >-
+      apis.yml image pointed at the wrong company's icon
+      (shared/apis-json/icons/groq.png). Replaced with RE/MAX Canada's own
+      published Open Graph logo,
+      https://static-images.remax.ca/next-assets/open-graph-logo/REMAX_Residential_og.png
+      (HTTP 200).
+  corroboration:
+    note: >-
+      Listing photographs on www.remax.ca are served from
+      https://images.remax.ca/webapi-properties-crea2-can/... — the path segment
+      itself names the CREA Web API as the upstream. Independent corroboration
+      that RE/MAX Canada consumes CREA-cooperative data rather than publishing
+      its own.
+  artifactsNotCreatedAndWhy:
+    openapi: No specification exists. Deriving one from the WordPress index would misrepresent the provider as spec-bearing.
+    scopes: WordPress authorizes by user capability; there is no OAuth scope vocabulary.
+    packages: No first-party SDK in any registry.
+    mcp: No hosted MCP server, and no OpenAPI to derive candidate tools from.
+    skills: No OpenAPI to ground an agent skill in.
+    asyncapi: No event, streaming or webhook surface.
+    sandbox: No test environment, test credentials or fixtures.
+    changelog: No dated changelog anywhere in the estate.
+    cli: No first-party CLI.
+    components: No published embeddable UI component library.
+    dataModel: No specification to derive an entity graph from.
+    declineCodes: Not a payments or authorization provider.
+    overlays: No OpenAPI to overlay.
+    grpc: No .proto published.
+    trustCenter: trust.remax.ca is a DNS wildcard artifact; no trust centre exists.
+    vulnerabilityDisclosure: No security.txt, no security@ contact, no bug bounty, no disclosure policy.

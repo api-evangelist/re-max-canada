@@ -1,0 +1,43 @@
+generated: '2026-07-26'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.remax.ca
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan 31 23:59:59 2027 GMT
+  hsts: null
+- host: blog.remax.ca
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 22 13:51:50 2026 GMT
+  hsts: false
+  note: >-
+    The API host (baseURL https://blog.remax.ca/wp-json). Probed by hand this
+    round because the mechanical sweep did not include it. WordPress VIP nginx;
+    no Strict-Transport-Security header returned.
+- host: agentbrokerhub.remax.ca
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 15:07:01 2026 GMT
+  hsts: false
+  note: >-
+    Real WordPress VIP host discovered this round (CNAME
+    remax-promotions.go-vip.net), distinct from the remax.ca DNS wildcard.
+- host: franchise.remax.ca
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep  1 22:54:22 2026 GMT
+  hsts: false
+- host: join.remax.ca
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep  3 00:52:21 2026 GMT
+  hsts: false
+domains:
+- domain: remax.ca
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none

@@ -1,0 +1,127 @@
+generated: '2026-07-26'
+method: searched
+source: >-
+  openapi/re-max-canada-blog-wp-json-index.json plus live response-header probes
+  of https://blog.remax.ca/wp-json/wp/v2/posts on 2026-07-26
+scope: >-
+  These conventions describe the WordPress REST API on blog.remax.ca — the only
+  anonymously callable machine-readable surface in the RE/MAX Canada estate.
+  They are WordPress platform defaults as configured by WordPress VIP, not
+  conventions RE/MAX Canada designed, documented or committed to. RE/MAX Canada
+  publishes no API style guide, no developer documentation and no product API.
+authentication:
+  style: >-
+    Anonymous read on wp/v2 content routes; HTTP Basic with a WordPress
+    Application Password for everything else.
+  see: authentication/re-max-canada-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No idempotency contract exists. The WordPress REST API defines no
+    Idempotency-Key header, no request-replay window and no dedupe semantics,
+    and none is declared in the harvested discovery index. Because idempotency
+    is genuinely absent, NO `Idempotency` pointer is wired into apis.yml.
+pagination:
+  style: page-number
+  request_params:
+  - name: page
+    description: 1-based page index.
+  - name: per_page
+    description: >-
+      Items per page. Capped at 10 on this WordPress VIP install (probed) rather
+      than the WordPress default of 100; exceeding it returns rest_invalid_param
+      / rest_out_of_bounds.
+  - name: offset
+    description: Declared on collection routes in the discovery index.
+  response_headers:
+  - name: X-WP-Total
+    description: Total items in the collection. Observed value 2110 for wp/v2/posts.
+  - name: X-WP-TotalPages
+    description: Total pages at the requested per_page.
+  - name: Link
+    description: >-
+      RFC 8288 web links; rel="next" and rel="prev" carry the ready-made page
+      URLs. Observed - <https://blog.remax.ca/wp-json/wp/v2/posts?per_page=1&page=2>; rel="next"
+  cors_exposed: >-
+    Access-Control-Expose-Headers - X-WP-Total, X-WP-TotalPages, Link (so a
+    browser client can actually read the pagination signal).
+field_selection:
+  sparse_fields:
+    param: _fields
+    description: Comma-separated allowlist of response fields.
+  expansion:
+    param: _embed
+    description: >-
+      Inlines linked resources (author, featured media, terms) under _embedded,
+      resolved from the _links block on every resource.
+  context:
+    param: context
+    values:
+    - view
+    - embed
+    - edit
+    description: >-
+      Declared on virtually every route in the discovery index; controls which
+      field set is serialised. edit requires authentication.
+  hateoas: >-
+    Every resource and the index itself carry a _links object with self,
+    collection, about and curies entries — the WordPress REST API is genuinely
+    hypermedia-linked.
+batching:
+  endpoint: /wp-json/batch/v1
+  method: POST
+  max_items: 25
+  validation_modes:
+  - normal
+  - require-all-validate
+  note: >-
+    Declared in the discovery index. Write methods only (POST/PUT/PATCH/DELETE)
+    and therefore authenticated; not usable anonymously.
+versioning:
+  scheme: namespace-in-path
+  current: wp/v2
+  description: >-
+    Version lives in the route namespace (wp/v2, wpcom/v2, jetpack/v4,
+    cloudinary/v1, ...). 25 namespaces were declared on blog.remax.ca. No
+    version negotiation header, no dated versions, no version pinning policy.
+  see: lifecycle/re-max-canada-lifecycle.yml
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id or correlation header is returned. The only per-request
+    diagnostic observed is x-rq (a WordPress VIP edge routing token) and x-cache
+    (HIT/EXPIRED/STALE).
+error_envelope:
+  format: wordpress-rest
+  rfc9457: false
+  shape: '{"code": string, "message": string, "data": {"status": int}}'
+  see: errors/re-max-canada-problem-types.yml
+rate_limiting:
+  documented: false
+  headers_observed: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* (RFC 9331 draft) or Retry-After header was
+    returned on any probe, and no rate-limit policy is published. The only
+    observed shaping is the per_page cap of 10 and edge caching
+    (Cache-Control - max-age=60 on wp/v2/posts, max-age=300 on HTML).
+cors:
+  allow_origin: '*'
+  allow_methods: GET
+  allow_headers: Origin, X-Requested-With, Content-Type, Accept, User-Agent
+  note: Fully open to browser clients for anonymous reads.
+caching:
+  cache_control: max-age=60 on wp/v2 collection responses
+  edge: >-
+    WordPress VIP nginx edge; x-cache HIT/EXPIRED/STALE observed. No ETag or
+    Last-Modified was returned on the probed collection response.
+robots_and_agents:
+  note: >-
+    The split posture is itself a convention worth recording.
+    blog.remax.ca/robots.txt explicitly ALLOWS GPTBot, OAI-SearchBot,
+    ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot,
+    Perplexity-User, Google-Extended, CCBot and cohere-ai, while the
+    www.remax.ca terms of use forbid crawlers, scripts and other automated
+    devices outright and its robots.txt disallows /api/, /v2/ and
+    /feature-flags/. The content RE/MAX Canada owns is open to agents; the
+    listing data it merely licenses from CREA and the boards is closed.
