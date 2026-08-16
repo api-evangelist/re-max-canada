@@ -6,14 +6,16 @@
       "feed_url": "https://blog.remax.ca/wp-admin/authorize-application.php",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "none",
+      "error": "parse_failed"
     },
     {
       "source": "https://blog.remax.ca/",
       "feed_url": "https://blog.remax.ca/",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "none",
+      "error": "parse_failed"
     },
     {
       "source": "https://www.remax.ca/fr/",
@@ -21,5 +23,5 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-08-06T14:08:46Z"
+  "fetched": "2026-08-15T12:11:08Z"
 }
