@@ -61,7 +61,7 @@ tags:
 - Franchising
 created: '2026-07-26'
 modified: '2026-07-26'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: re-max-canada:re-max-canada-blog-wordpress-rest-api
   name: RE/MAX Canada Blog WordPress REST API
