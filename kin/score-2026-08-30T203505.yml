@@ -1,38 +1,45 @@
-# Kin Score artifact — re-max-canada — 2026-07-28T200725
+# Kin Score artifact — re-max-canada — 2026-08-30T203505
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: re-max-canada
-  schema_version: 0.6
-  scored_at: '2026-07-28'
-  run_ts: 2026-07-28T200725
-  composite: 26.6
+  schema_version: 0.17.2
+  scored_at: '2026-08-30'
+  run_ts: 2026-08-30T203505
+  composite: 22.1
   band: emerging
   facets:
-    discoverability: 87.0
-    contract_quality: 32.3
-    governance: 3.1
+    discoverability: 68.5
+    contract_quality: 26.7
+    governance: 4.5
     operational_transparency: 0.0
-    developer_ergonomics: 13.0
+    developer_ergonomics: 14.3
     commercial_clarity: 21.1
+    contract_governance: 4.5
+    access_clarity: 21.1
   agent_readiness:
-    score: 28.8
+    score: 18.3
     band: agent-aware
     dimensions:
       spec_presence: true
       agentic_access: false
+      reversibility_documented: false
       mcp_server: false
-      auth_clarity: true
+      auth_clarity: bearer
       idempotency: false
       error_semantics: documented
       openapi_examples: false
       rate_limit_signal: false
-      asyncapi_events: false
+      event_surface_described: false
       agent_skills: false
       well_known_catalog: false
       consent_identity: false
       agent_card: false
       dry_run_mode: false
+      delegated_identity: false
+      protected_resource_metadata: false
+      dynamic_client_registration: false
+      agentic_commerce: false
   regulatory:
     applies: true
     regime: Securities & Market Data
