@@ -58,7 +58,7 @@ accessModel:
   method: manual
 image: https://static-images.remax.ca/next-assets/open-graph-logo/REMAX_Residential_og.png
 tags:
-- Real-Estate
+- Real Estate
 - Canada
 - Brokerage
 - Property Listings
@@ -83,47 +83,25 @@ tags_raw:
 - Valuation
 - Rentals
 - Franchising
+- Real-Estate
 created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.23'
 apis:
-- aid: re-max-canada:re-max-canada-blog-wordpress-rest-api
-  name: RE/MAX Canada Blog WordPress REST API
-  description: >-
-    The only anonymously reachable, machine-readable API surface found anywhere
-    in the RE/MAX Canada estate. blog.remax.ca is a WordPress VIP site (CNAME
-    remax-promotions.go-vip.net) that serves the stock WordPress REST API at
-    /wp-json/ with no authentication. The discovery index returned HTTP 200 and
-    446,832 bytes on 2026-07-26, declaring 25 namespaces and 563 routes, and
-    self-documents every route's methods and arguments. It must not be mistaken
-    for a RE/MAX product API. It carries Canadian real estate news posts, pages,
-    categories, tags, media and authors — no listings, no property records, no
-    valuations and no RESO Data Dictionary fields. Most of the 563 routes belong
-    to Jetpack, Akismet, cron-control, Yoast, Cloudinary and WordPress VIP
-    plugins and require authentication; the anonymously readable surface is the
-    wp/v2 content namespace, confirmed with GET /wp-json/wp/v2/posts?per_page=1
-    (200) and GET /wp-json/wp/v2/users (200). The declared authentication scheme
-    is WordPress application passwords, authorized at
-    https://blog.remax.ca/wp-admin/authorize-application.php, which is a staff
-    login rather than a developer onboarding path. RE/MAX Canada publishes no
-    documentation for it; it is a default of the hosting platform. The identical
-    surface is also live on join.remax.ca and franchise.remax.ca.
-  humanURL: https://blog.remax.ca/
+- aid: re-max-canada:blog-remax-ca-website-wordpress-rest
+  name: RE/MAX Canada Website (WordPress REST)
+  description: 'The public WordPress REST API (wp-json) of the RE/MAX Canada website at blog.remax.ca:
+    the route index of the site''s content management system, catalogued as one site surface rather than
+    as separate APIs.'
   baseURL: https://blog.remax.ca/wp-json
   tags:
-  - Blog
-  - Content
   - WordPress
-  - Canada
+  x-surface: platform-generated
   properties:
-  - type: Index
-    url: openapi/re-max-canada-blog-wp-json-index.json
-  - type: Index
-    url: https://blog.remax.ca/wp-json/
-  - type: Authentication
-    url: https://blog.remax.ca/wp-admin/authorize-application.php
-  - type: Blog
-    url: https://blog.remax.ca/feed/
+  - type: Documentation
+    url: https://blog.remax.ca/wp-json
+  x-platform: wordpress
+  x-platform-surface: rest
 common:
 - type: DomainSecurity
   url: security/re-max-canada-domain-security.yml
@@ -165,6 +143,8 @@ common:
   url: https://www.facebook.com/remaxcanada
 - type: Instagram
   url: https://www.instagram.com/remaxcanada/
+- type: Authentication
+  url: https://blog.remax.ca/wp-admin/authorize-application.php
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
