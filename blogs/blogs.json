@@ -2,13 +2,6 @@
   "repo": "re-max-canada",
   "feeds": [
     {
-      "source": "https://blog.remax.ca/wp-admin/authorize-application.php",
-      "feed_url": "https://blog.remax.ca/wp-admin/authorize-application.php",
-      "title": "",
-      "saved": 0,
-      "method": "none"
-    },
-    {
       "source": "https://blog.remax.ca/",
       "feed_url": "https://blog.remax.ca/",
       "title": "",
@@ -18,8 +11,15 @@
     {
       "source": "https://www.remax.ca/fr/",
       "error": "HTTPError"
+    },
+    {
+      "source": "https://blog.remax.ca/wp-admin/authorize-application.php",
+      "feed_url": "https://blog.remax.ca/wp-admin/authorize-application.php",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-09-19T20:17:39Z"
+  "fetched": "2026-10-03T12:30:02Z"
 }
